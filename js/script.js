@@ -11,41 +11,83 @@ var iconURL = "https://openweathermap.org/img/w/";
 
 // -- END OF API DEPENDENCIES -- //
 
+
+
 function inputSubmitted(cityName) {
   $.get(currentURL + `q=${cityName}`).then(function (currentData) {
     // console.log(currentData);
 
     $("p").append(`
-      Temp: ${Math.round(currentData.main.temp)}
-      Humidity: ${currentData.main.humidity}%
-      Wind: ${currentData.wind.speed}
-      IconURL: ${iconURL + currentData.weather[0].icon}.png
+      <div>Temp: ${Math.round(currentData.main.temp)}</div>
+      <div>Humidity: ${currentData.main.humidity}%</div>
+      <div>Wind: ${currentData.wind.speed}</div>
+      <div>IconURL: ${iconURL + currentData.weather[0].icon}.png</div>
       `);
 
     $.get(
       forecastURL + `lat=${currentData.coord.lat}&lon=${currentData.coord.lon}`
     ).then(function (forecastData) {
       console.log(forecastData);
+      console.log(forecastData.list[0].main.temp);
+
+      $("#forecast1").append(`
+      <div>${'('  + moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ')' }</div>
+      <div>Temp: ${Math.round(forecastData.list[1].main.temp)}</div>
+      <div>Humidity: ${forecastData.list[1].main.humidity}%</div>
+      <div>Wind: ${forecastData.list[1].wind.speed}</div>
+      
+      `);
+
+      $("#forecast2").append(`
+      <div>${'('  + moment(new Date()).add(2, 'days').format("DD/MM/YYYY") + ')' }</div>
+      <div>Temp: ${Math.round(forecastData.list[2].main.temp)}</div>
+      <div>Humidity: ${forecastData.list[2].main.humidity}%</div>
+      <div>Wind: ${forecastData.list[2].wind.speed}</div>
+      
+      `);
+
+      $("#forecast3").append(`
+      <div>${'('  + moment(new Date()).add(3, 'days').format("DD/MM/YYYY") + ')' }</div>
+      <div>Temp: ${Math.round(forecastData.list[3].main.temp)}</div>
+      <div>Humidity: ${forecastData.list[3].main.humidity}%</div>
+      <div>Wind: ${forecastData.list[3].wind.speed}</div>
+      
+      `);
+
+      $("#forecast4").append(`
+      <div>${'('  + moment(new Date()).add(4, 'days').format("DD/MM/YYYY") + ')' }</div>
+      <div>Temp: ${Math.round(forecastData.list[4].main.temp)}</div>
+      <div>Humidity: ${forecastData.list[4].main.humidity}%</div>
+      <div>Wind: ${forecastData.list[4].wind.speed}</div>
+      
+      `);
+
+      $("#forecast5").append(`
+      <div>${'('  + moment(new Date()).add(5, 'days').format("DD/MM/YYYY") + ')' }</div>
+      <div>Temp: ${Math.round(forecastData.list[5].main.temp)}</div>
+      <div>Humidity: ${forecastData.list[5].main.humidity}%</div>
+      <div>Wind: ${forecastData.list[5].wind.speed}</div>
+      
+      `);
+
     });
   });
 
-  $("p").prepend(city);
+  $("h3").prepend(city + ' ' + '('  + moment(new Date()).format("DD/MM/YYYY") + ')' );
+  // $("h3").prepend(city + ' ' + '('  + moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ')' );
 
 }
 
 inputSubmitted(city);
 
-//--- End of API JS ---//
 
-// var todoList = document.createElement("div");
-// todoList.innerHTML =
-//   '<input type="text" id="todoInput" placeholder="Add todo item..."><button id="addTodo">Add</button><ul id="todoList"></ul>';
-// document.body.appendChild(todoList);
-// var todoInput = document.getElementById("todoInput");
-// var addTodo = document.getElementById("addTodo");
+
+
 
 var todoList = document.getElementById("todoList");
 var todoItem = document.createElement("li");
+
+
 
 var list1 = document.getElementById("li1");
 var list2 = document.getElementById("li2");
@@ -54,12 +96,48 @@ var list4 = document.getElementById("li4");
 var list5 = document.getElementById("li5");
 var list6 = document.getElementById("li6");
 
-// addTodo.addEventListener("click", function () {
-//   var todoItem = document.createElement("li");
-//   todoItem.innerHTML = todoInput.value;
-//   todoList.appendChild(todoItem);
-//   todoInput.value = "";
-// });
+
+
+list1.addEventListener("click", function () {
+  console.log(list1.innerHTML);
+  localStorage.setItem("cityName", list1.innerHTML);
+  location. reload()
+})
+
+list2.addEventListener("click", function () {
+  console.log(list2.innerHTML);
+  localStorage.setItem("cityName", list2.innerHTML);
+  location. reload()
+})
+
+list3.addEventListener("click", function () {
+  console.log(list3.innerHTML);
+  localStorage.setItem("cityName", list3.innerHTML);
+  location. reload()
+})
+
+list4.addEventListener("click", function () {
+  console.log(list4.innerHTML);
+  localStorage.setItem("cityName", list4.innerHTML);
+  location. reload()
+})
+
+list5.addEventListener("click", function () {
+  console.log(list5.innerHTML);
+  localStorage.setItem("cityName", list5.innerHTML);
+  location. reload()
+})
+
+list6.addEventListener("click", function () {
+  console.log(list6.innerHTML);
+  localStorage.setItem("cityName", list6.innerHTML);
+  location. reload()
+})
+
+
+
+
+
 
 //--- Start of interaction code ---//
 
@@ -98,6 +176,8 @@ button.onclick = function () {
     localStorage.setItem("cityName", input.value);
     if (firstStorage == null){
         localStorage.setItem("input1", input.value);
+        
+        
     }
    
     else if (secondStorage == null) {
@@ -124,81 +204,71 @@ button.onclick = function () {
         console.log("hello")
     }
 
+  }};
+
+  // document.getElementById("li1").style.display = "none";
+// document.getElementById("li2").style.display = "none";
+// document.getElementById("li3").style.display = "none";
+// document.getElementById("li4").style.display = "none";
+// document.getElementById("li5").style.display = "none";
+// document.getElementById("li6").style.display = "none";
+
+// document.getElementById("li1").style.display = "block";
+// document.getElementById("li2").style.display = "block";
+// document.getElementById("li3").style.display = "block";
+// document.getElementById("li4").style.display = "block";
+// document.getElementById("li5").style.display = "block";
+// document.getElementById("li6").style.display = "block";
+
+  function previousChecker(){
+    if (firstStorage == null){
+      document.getElementById("li1").style.display = "none";
   }
 
-// I made all of this convuluded code for nothing :'( accidentally found a simpler solution above ^^^^
+  else{
+    document.getElementById("li1").style.display = "block";
+  }
 
-//   if (counter === 2) {
-//     localStorage.setItem("cityName", input.value);
-//     if (secondStorage == null){
-//         localStorage.setItem("input2", input.value);
-//     }
-    
-//   }
+  if (secondStorage == null){
+    document.getElementById("li2").style.display = "none";
+}
 
-//   if (counter === 3) {
-//     localStorage.setItem("cityName", input.value);
-//     if (thirdStorage == null){
-//         localStorage.setItem("input3", input.value);
-//     }
-    
-//   }
+else{
+  document.getElementById("li2").style.display = "block";
+}
 
-//   if (counter === 4) {
-//     localStorage.setItem("cityName", input.value);
-//     if (fourthStorage == null){
-//         localStorage.setItem("input4", input.value);
-//     }
-    
-//   }
+if (thirdStorage == null){
+  document.getElementById("li3").style.display = "none";
+}
 
-//   if (counter === 5) {
-//     localStorage.setItem("cityName", input.value);
-//     if (fifthStorage == null){
-//         localStorage.setItem("input5", input.value);
-//     }
-    
-//   }
+else{
+document.getElementById("li3").style.display = "block";
+}
 
-//   if (counter === 6) {
-//     localStorage.setItem("cityName", input.value);
-//     if (sixthStorage == null){
-//         localStorage.setItem("input6", input.value);
-//     }
-    
-//   }
-};
+if (fourthStorage == null){
+  document.getElementById("li4").style.display = "none";
+}
 
+else{
+document.getElementById("li4").style.display = "block";
+}
 
-// var searchButton = document.getElementById("search-button");
-// var input = document.getElementById("search-input");
+if (fifthStorage == null){
+  document.getElementById("li5").style.display = "none";
+}
 
-// searchButton.onclick = function(){
+else{
+document.getElementById("li5").style.display = "block";
+}
 
-//     event.preventDefault();
-//     var key = input.value;
-//     localStorage.setItem("input1", key);
-//     var value1 = localStorage.getItem(key);
+if (sixthStorage == null){
+  document.getElementById("li6").style.display = "none";
+}
 
-// };
-// $("#cityName").append(city)
-// var write = localStorage.getItem("input1");
+else{
+document.getElementById("li6").style.display = "block";
+}
 
-// searchButton.onclick = function(){
-//     event.preventDefault();
-//     var key2 = input.value;
-//     localStorage.setItem("input2", key);
-//     var value2 = localStorage.getItem(key);
+  };
 
-// };
-
-// $("#cityName2").append(city2)
-
-// function inputSubmitted(cityName) {
-//     $.get(currentURL + `q=${cityName}`).then(function (currentData) {
-//       console.log(currentData);
-//       console.log(currentData.main.temp);
-//       var temp = currentData.main.temp;
-//       $("p").append(temp);
-//     });
-//   }
+  previousChecker();
